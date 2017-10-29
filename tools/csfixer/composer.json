@@ -1,0 +1,12 @@
+{
+    "name": "tools/csfixer",
+    "require": {
+        "friendsofphp/php-cs-fixer": "^2.7"
+    },
+    "authors": [
+        {
+            "name": "Petr Chromec",
+            "email": "mortal_flesh@seznam.cz"
+        }
+    ]
+}

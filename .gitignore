@@ -1,0 +1,8 @@
+/vendor/
+/code-coverage/
+composer.lock
+
+/bin/
+
+/tools/**
+!/tools/*/composer.json

@@ -1,0 +1,15 @@
+language: php
+php:
+    - '7.1'
+
+install:
+    - composer install
+
+before-script:
+    - mkdir -p code-coverage
+
+script:
+    - composer test
+
+after_success:
+    - travis_retry php vendor/bin/coveralls -v

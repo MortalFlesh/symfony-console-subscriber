@@ -7,6 +7,7 @@ use MF\ConsoleSubscriber\Event\ProgressAdvanceEvent;
 use MF\ConsoleSubscriber\Event\ProgressFinishedEvent;
 use MF\ConsoleSubscriber\Event\ProgressStartEvent;
 use MF\ConsoleSubscriber\Event\SectionEvent;
+use MF\ConsoleSubscriber\Event\TableEvent;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -86,6 +87,13 @@ class ConsoleSubscriber implements EventSubscriberInterface
     {
         if ($this->io) {
             $this->io->note($event->getNote());
+        }
+    }
+
+    public function onTable(TableEvent $event)
+    {
+        if ($this->io) {
+            $this->io->table($event->getHeaders(), $event->getRows());
         }
     }
 }

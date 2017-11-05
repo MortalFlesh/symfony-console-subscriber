@@ -7,6 +7,7 @@ use MF\ConsoleSubscriber\Event\ProgressAdvanceEvent;
 use MF\ConsoleSubscriber\Event\ProgressFinishedEvent;
 use MF\ConsoleSubscriber\Event\ProgressStartEvent;
 use MF\ConsoleSubscriber\Event\SectionEvent;
+use MF\ConsoleSubscriber\Event\TableEvent;
 use MF\ConsoleSubscriber\Subscriber\ConsoleSubscriber;
 use MF\Tests\AbstractTestCase;
 use Mockery as m;
@@ -124,6 +125,23 @@ class ConsoleSubscriberTest extends AbstractTestCase
 
         $this->io->shouldHaveReceived('note')
             ->with($message)
+            ->once();
+    }
+
+    public function testShouldShowTable()
+    {
+        $headers = ['id', 'name'];
+        $rows = [
+            [1, 'name 1'],
+            [2, 'name 2'],
+        ];
+        $event = new TableEvent($headers, $rows);
+
+        $this->consoleSubscriber->setIo($this->io);
+        $this->consoleSubscriber->onTable($event);
+
+        $this->io->shouldHaveReceived('table')
+            ->with($headers, $rows)
             ->once();
     }
 }

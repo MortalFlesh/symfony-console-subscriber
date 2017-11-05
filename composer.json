@@ -1,6 +1,6 @@
 {
     "name": "mf/symfony-console-subscriber",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Console Subscriber for Symfony Console",
     "type": "library",
     "license": "MIT",

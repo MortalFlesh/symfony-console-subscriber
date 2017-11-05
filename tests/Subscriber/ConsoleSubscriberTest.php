@@ -2,6 +2,7 @@
 
 namespace MF\Tests\Subscriber;
 
+use MF\ConsoleSubscriber\Event\MessageEvent;
 use MF\ConsoleSubscriber\Event\NoteEvent;
 use MF\ConsoleSubscriber\Event\ProgressAdvanceEvent;
 use MF\ConsoleSubscriber\Event\ProgressFinishedEvent;
@@ -36,10 +37,13 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ProgressFinishedEvent::class => ['onProgressFinished'],
             SectionEvent::class => ['onSection'],
             NoteEvent::class => ['onNote'],
+            TableEvent::class => ['onTable'],
+            MessageEvent::class => ['onMessage'],
         ];
 
         $events = ConsoleSubscriber::getSubscribedEvents();
 
+        $this->assertCount(count($expected), $events);
         $this->assertEquals($expected, $events);
     }
 
@@ -142,6 +146,20 @@ class ConsoleSubscriberTest extends AbstractTestCase
 
         $this->io->shouldHaveReceived('table')
             ->with($headers, $rows)
+            ->once();
+    }
+
+    public function testShouldShowMessage()
+    {
+        $message = 'message %s';
+        $event = new MessageEvent($message, 'args');
+        $expectedMessage = 'message args';
+
+        $this->consoleSubscriber->setIo($this->io);
+        $this->consoleSubscriber->onMessage($event);
+
+        $this->io->shouldHaveReceived('writeln')
+            ->with($expectedMessage)
             ->once();
     }
 }

@@ -2,12 +2,15 @@
 
 namespace MF\ConsoleSubscriber\Subscriber;
 
+use MF\ConsoleSubscriber\Event\MessageEvent;
 use MF\ConsoleSubscriber\Event\NoteEvent;
 use MF\ConsoleSubscriber\Event\ProgressAdvanceEvent;
 use MF\ConsoleSubscriber\Event\ProgressFinishedEvent;
 use MF\ConsoleSubscriber\Event\ProgressStartEvent;
 use MF\ConsoleSubscriber\Event\SectionEvent;
 use MF\ConsoleSubscriber\Event\TableEvent;
+use MF\ConsoleSubscriber\Service\MessageFormatter;
+use MF\ConsoleSubscriber\Service\TableFormatter;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -42,6 +45,8 @@ class ConsoleSubscriber implements EventSubscriberInterface
             ProgressFinishedEvent::class => ['onProgressFinished'],
             SectionEvent::class => ['onSection'],
             NoteEvent::class => ['onNote'],
+            TableEvent::class => ['onTable'],
+            MessageEvent::class => ['onMessage'],
         ];
     }
 
@@ -93,7 +98,14 @@ class ConsoleSubscriber implements EventSubscriberInterface
     public function onTable(TableEvent $event)
     {
         if ($this->io) {
-            $this->io->table($event->getHeaders(), $event->getRows());
+            $this->io->table($event->getHeaders(), TableFormatter::formatRows($event->getRows()));
+        }
+    }
+
+    public function onMessage(MessageEvent $event)
+    {
+        if ($this->io) {
+            $this->io->writeln(MessageFormatter::formatMessage($event->getMessage()));
         }
     }
 }

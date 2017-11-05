@@ -2,11 +2,13 @@
 
 namespace MF\Tests\Subscriber;
 
+use MF\ConsoleSubscriber\Event\MessageEvent;
 use MF\ConsoleSubscriber\Event\NoteEvent;
 use MF\ConsoleSubscriber\Event\ProgressAdvanceEvent;
 use MF\ConsoleSubscriber\Event\ProgressFinishedEvent;
 use MF\ConsoleSubscriber\Event\ProgressStartEvent;
 use MF\ConsoleSubscriber\Event\SectionEvent;
+use MF\ConsoleSubscriber\Event\TableEvent;
 use MF\ConsoleSubscriber\Subscriber\ConsoleSubscriber;
 use MF\Tests\AbstractTestCase;
 use Mockery as m;
@@ -35,10 +37,13 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ProgressFinishedEvent::class => ['onProgressFinished'],
             SectionEvent::class => ['onSection'],
             NoteEvent::class => ['onNote'],
+            TableEvent::class => ['onTable'],
+            MessageEvent::class => ['onMessage'],
         ];
 
         $events = ConsoleSubscriber::getSubscribedEvents();
 
+        $this->assertCount(count($expected), $events);
         $this->assertEquals($expected, $events);
     }
 
@@ -124,6 +129,37 @@ class ConsoleSubscriberTest extends AbstractTestCase
 
         $this->io->shouldHaveReceived('note')
             ->with($message)
+            ->once();
+    }
+
+    public function testShouldShowTable()
+    {
+        $headers = ['id', 'name'];
+        $rows = [
+            [1, 'name 1'],
+            [2, 'name 2'],
+        ];
+        $event = new TableEvent($headers, $rows);
+
+        $this->consoleSubscriber->setIo($this->io);
+        $this->consoleSubscriber->onTable($event);
+
+        $this->io->shouldHaveReceived('table')
+            ->with($headers, $rows)
+            ->once();
+    }
+
+    public function testShouldShowMessage()
+    {
+        $message = 'message %s';
+        $event = new MessageEvent($message, 'args');
+        $expectedMessage = 'message args';
+
+        $this->consoleSubscriber->setIo($this->io);
+        $this->consoleSubscriber->onMessage($event);
+
+        $this->io->shouldHaveReceived('writeln')
+            ->with($expectedMessage)
             ->once();
     }
 }

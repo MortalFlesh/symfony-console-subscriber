@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace MF\Tests\Service;
+namespace MF\ConsoleSubscriber\Service;
 
-use MF\ConsoleSubscriber\Service\MessageFormatter;
-use MF\Tests\AbstractTestCase;
+use MF\ConsoleSubscriber\AbstractTestCase;
 
 class MessageFormatterTest extends AbstractTestCase
 {
@@ -15,7 +14,7 @@ class MessageFormatterTest extends AbstractTestCase
         $this->assertSame($expected, $result);
     }
 
-    public function messageProvider()
+    public function messageProvider(): array
     {
         return [
             // message, expected
@@ -24,15 +23,15 @@ class MessageFormatterTest extends AbstractTestCase
             'with unkonw mark' => ['Some message with {UNKNOWN}', 'Some message with {UNKNOWN}'],
             'with status ok' => [
                 '{OK} Some message',
-                sprintf("<fg=green;options=bold>%s</> Some message", $this->expectsUnicode("\xE2\x9C\x94", 'OK')),
+                sprintf('<fg=green;options=bold>%s</> Some message', $this->expectsUnicode("\xE2\x9C\x94", 'OK')),
             ],
             'with status warning' => [
                 '{WARNING} Some message',
-                sprintf("<fg=yellow;options=bold>%s</> Some message", $this->expectsUnicode('!', 'WARNING')),
+                sprintf('<fg=yellow;options=bold>%s</> Some message', $this->expectsUnicode('!', 'WARNING')),
             ],
             'with status error' => [
                 '{ERROR} Some message',
-                sprintf("<fg=red;options=bold>%s</> Some message", $this->expectsUnicode("\xE2\x9C\x98", 'ERROR')),
+                sprintf('<fg=red;options=bold>%s</> Some message', $this->expectsUnicode("\xE2\x9C\x98", 'ERROR')),
             ],
         ];
     }

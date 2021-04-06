@@ -1,16 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MF\ConsoleSubscriber\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class TableEvent extends Event
 {
-    /** @var array */
-    private $headers;
-
-    /** @var array */
-    private $rows;
+    private array $headers;
+    private array $rows;
 
     public function __construct(array $headers, array $rows)
     {

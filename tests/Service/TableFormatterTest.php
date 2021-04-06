@@ -1,21 +1,20 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace MF\Tests\Service;
+namespace MF\ConsoleSubscriber\Service;
 
-use MF\ConsoleSubscriber\Service\TableFormatter;
-use MF\Tests\AbstractTestCase;
+use MF\ConsoleSubscriber\AbstractTestCase;
 
 class TableFormatterTest extends AbstractTestCase
 {
     /** @dataProvider rowsProvider */
-    public function testShouldFormatRows(array $rows, array $expected)
+    public function testShouldFormatRows(array $rows, array $expected): void
     {
         $result = TableFormatter::formatRows($rows);
 
         $this->assertEquals($expected, $result);
     }
 
-    public function rowsProvider()
+    public function rowsProvider(): array
     {
         return [
             // rows, expected
@@ -40,15 +39,15 @@ class TableFormatterTest extends AbstractTestCase
                 [
                     ['{INVALID}', 'other value'],
                     [
-                        sprintf("<fg=green;options=bold>%s</>", $this->expectsUnicode("\xE2\x9C\x94", 'OK')),
+                        sprintf('<fg=green;options=bold>%s</>', $this->expectsUnicode("\xE2\x9C\x94", 'OK')),
                         'other value',
                     ],
                     [
-                        sprintf("<fg=yellow;options=bold>%s</>", $this->expectsUnicode('!', 'WARNING')),
+                        sprintf('<fg=yellow;options=bold>%s</>', $this->expectsUnicode('!', 'WARNING')),
                         'other value',
                     ],
                     [
-                        sprintf("<fg=red;options=bold>%s</>", $this->expectsUnicode("\xE2\x9C\x98", 'ERROR')),
+                        sprintf('<fg=red;options=bold>%s</>', $this->expectsUnicode("\xE2\x9C\x98", 'ERROR')),
                         'other value',
                     ],
                 ],
@@ -72,9 +71,9 @@ class TableFormatterTest extends AbstractTestCase
                 ],
                 [
                     '{INVALID} value',
-                    sprintf("<fg=green;options=bold>%s</> value", $this->expectsUnicode("\xE2\x9C\x94", 'OK')),
-                    sprintf("<fg=yellow;options=bold>%s</> value", $this->expectsUnicode('!', 'WARNING')),
-                    sprintf("<fg=red;options=bold>%s</> value", $this->expectsUnicode("\xE2\x9C\x98", 'ERROR')),
+                    sprintf('<fg=green;options=bold>%s</> value', $this->expectsUnicode("\xE2\x9C\x94", 'OK')),
+                    sprintf('<fg=yellow;options=bold>%s</> value', $this->expectsUnicode('!', 'WARNING')),
+                    sprintf('<fg=red;options=bold>%s</> value', $this->expectsUnicode("\xE2\x9C\x98", 'ERROR')),
                 ],
             ],
         ];

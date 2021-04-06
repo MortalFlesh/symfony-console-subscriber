@@ -1,13 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace MF\Tests\Event;
+namespace MF\ConsoleSubscriber\Event;
 
-use MF\ConsoleSubscriber\Event\NoteEvent;
-use MF\Tests\AbstractTestCase;
+use MF\ConsoleSubscriber\AbstractTestCase;
 
 class NoteEventTest extends AbstractTestCase
 {
-    public function testShouldFormatNote()
+    public function testShouldFormatNote(): void
     {
         $expected = 'Message with args Value.';
         $event = new NoteEvent('Message with args %s.', 'Value');

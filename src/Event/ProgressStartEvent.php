@@ -1,13 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MF\ConsoleSubscriber\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ProgressStartEvent extends Event
 {
-    /** @var int */
-    private $count;
+    private int $count;
 
     /**
      * @param int|\Countable $count

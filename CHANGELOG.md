@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+- [**BC**] Require php 7.4 and update dependencies
+- [**BC**] Drop Symfony 4 support and require Symfony 5
 
 ## 0.2.0 - 2017-11-05
 - Table event added

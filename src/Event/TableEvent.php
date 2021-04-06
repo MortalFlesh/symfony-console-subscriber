@@ -6,13 +6,8 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class TableEvent extends Event
 {
-    private array $headers;
-    private array $rows;
-
-    public function __construct(array $headers, array $rows)
+    public function __construct(private array $headers, private array $rows)
     {
-        $this->headers = $headers;
-        $this->rows = $rows;
     }
 
     public function getHeaders(): array

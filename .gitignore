@@ -4,5 +4,4 @@ composer.lock
 
 /bin/
 
-/tools/**
-!/tools/*/composer.json
+.phpunit.result.cache

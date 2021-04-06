@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MF\ConsoleSubscriber\Event;
 
-class NoteEvent extends FormatableEvent
+class NoteEvent extends AbstractFormatableEvent
 {
-    /** @var string */
-    private $note;
+    private string $note;
 
     public function __construct(string $note, string ...$args)
     {

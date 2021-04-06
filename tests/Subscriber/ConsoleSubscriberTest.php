@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace MF\Tests\Subscriber;
+namespace MF\ConsoleSubscriber\Subscriber;
 
+use MF\ConsoleSubscriber\AbstractTestCase;
 use MF\ConsoleSubscriber\Event\MessageEvent;
 use MF\ConsoleSubscriber\Event\NoteEvent;
 use MF\ConsoleSubscriber\Event\ProgressAdvanceEvent;
@@ -9,27 +10,24 @@ use MF\ConsoleSubscriber\Event\ProgressFinishedEvent;
 use MF\ConsoleSubscriber\Event\ProgressStartEvent;
 use MF\ConsoleSubscriber\Event\SectionEvent;
 use MF\ConsoleSubscriber\Event\TableEvent;
-use MF\ConsoleSubscriber\Subscriber\ConsoleSubscriber;
-use MF\Tests\AbstractTestCase;
 use Mockery as m;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ConsoleSubscriberTest extends AbstractTestCase
 {
-    /** @var ConsoleSubscriber */
-    private $consoleSubscriber;
+    private ConsoleSubscriber $consoleSubscriber;
 
     /** @var SymfonyStyle|m\MockInterface */
     private $io;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->consoleSubscriber = new ConsoleSubscriber();
 
         $this->io = m::spy(SymfonyStyle::class);
     }
 
-    public function testShouldSubscribeToSymfonyConsoleEvents()
+    public function testShouldSubscribeToSymfonyConsoleEvents(): void
     {
         $expected = [
             ProgressStartEvent::class => ['onProgressStart'],
@@ -47,7 +45,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
         $this->assertEquals($expected, $events);
     }
 
-    public function testShouldWorkWithoutSymfonyConsole()
+    public function testShouldWorkWithoutSymfonyConsole(): void
     {
         $sectionEvent = new SectionEvent('section');
 
@@ -56,7 +54,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
         $this->assertTrue(true);
     }
 
-    public function testShouldStartProgress()
+    public function testShouldStartProgress(): void
     {
         $count = 5;
         $event = new ProgressStartEvent($count);
@@ -69,7 +67,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ->once();
     }
 
-    public function testShouldAdvanceProgress()
+    public function testShouldAdvanceProgress(): void
     {
         $event = new ProgressAdvanceEvent();
 
@@ -80,7 +78,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ->once();
     }
 
-    public function testShouldFinishProgressWithoutMessage()
+    public function testShouldFinishProgressWithoutMessage(): void
     {
         $event = new ProgressFinishedEvent();
 
@@ -91,7 +89,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ->once();
     }
 
-    public function testShouldFinishProgressWithMessage()
+    public function testShouldFinishProgressWithMessage(): void
     {
         $message = 'And it\'s done!';
         $event = new ProgressFinishedEvent($message);
@@ -106,7 +104,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ->once();
     }
 
-    public function testShouldShowSection()
+    public function testShouldShowSection(): void
     {
         $message = 'Section';
         $event = new SectionEvent($message);
@@ -119,7 +117,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ->once();
     }
 
-    public function testShouldShowNote()
+    public function testShouldShowNote(): void
     {
         $message = 'Note';
         $event = new NoteEvent($message);
@@ -132,7 +130,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ->once();
     }
 
-    public function testShouldShowTable()
+    public function testShouldShowTable(): void
     {
         $headers = ['id', 'name'];
         $rows = [
@@ -149,7 +147,7 @@ class ConsoleSubscriberTest extends AbstractTestCase
             ->once();
     }
 
-    public function testShouldShowMessage()
+    public function testShouldShowMessage(): void
     {
         $message = 'message %s';
         $event = new MessageEvent($message, 'args');

@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MF\ConsoleSubscriber\Event;
 
-class ProgressFinishedEvent extends FormatableEvent
+class ProgressFinishedEvent extends AbstractFormatableEvent
 {
-    /** @var string */
-    private $message;
+    private string $message;
 
     public function __construct(string $message = '', string ...$args)
     {

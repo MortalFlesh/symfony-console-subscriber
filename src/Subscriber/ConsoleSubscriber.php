@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MF\ConsoleSubscriber\Subscriber;
 
@@ -16,8 +16,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConsoleSubscriber implements EventSubscriberInterface
 {
-    /** @var SymfonyStyle */
-    private $io;
+    private ?SymfonyStyle $io = null;
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
@@ -37,7 +36,7 @@ class ConsoleSubscriber implements EventSubscriberInterface
      *
      * @return array The event names to listen to
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ProgressStartEvent::class => ['onProgressStart'],
@@ -50,26 +49,26 @@ class ConsoleSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function setIo(SymfonyStyle $io)
+    public function setIo(SymfonyStyle $io): void
     {
         $this->io = $io;
     }
 
-    public function onProgressStart(ProgressStartEvent $event)
+    public function onProgressStart(ProgressStartEvent $event): void
     {
         if ($this->io) {
             $this->io->progressStart($event->getCount());
         }
     }
 
-    public function onProgressAdvance(ProgressAdvanceEvent $event)
+    public function onProgressAdvance(ProgressAdvanceEvent $event): void
     {
         if ($this->io) {
             $this->io->progressAdvance();
         }
     }
 
-    public function onProgressFinished(ProgressFinishedEvent $event)
+    public function onProgressFinished(ProgressFinishedEvent $event): void
     {
         if ($this->io) {
             $this->io->progressFinish();
@@ -81,28 +80,28 @@ class ConsoleSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function onSection(SectionEvent $event)
+    public function onSection(SectionEvent $event): void
     {
         if ($this->io) {
             $this->io->section($event->getSection());
         }
     }
 
-    public function onNote(NoteEvent $event)
+    public function onNote(NoteEvent $event): void
     {
         if ($this->io) {
             $this->io->note($event->getNote());
         }
     }
 
-    public function onTable(TableEvent $event)
+    public function onTable(TableEvent $event): void
     {
         if ($this->io) {
             $this->io->table($event->getHeaders(), TableFormatter::formatRows($event->getRows()));
         }
     }
 
-    public function onMessage(MessageEvent $event)
+    public function onMessage(MessageEvent $event): void
     {
         if ($this->io) {
             $this->io->writeln(MessageFormatter::formatMessage($event->getMessage()));

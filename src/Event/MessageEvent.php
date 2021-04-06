@@ -4,11 +4,8 @@ namespace MF\ConsoleSubscriber\Event;
 
 class MessageEvent extends AbstractFormatableEvent
 {
-    private string $message;
-
-    public function __construct(string $message, string ...$args)
+    public function __construct(private string $message, string ...$args)
     {
-        $this->message = $message;
         $this->setArgs($args);
     }
 

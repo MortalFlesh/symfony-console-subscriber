@@ -8,10 +8,7 @@ class ProgressStartEvent extends Event
 {
     private int $count;
 
-    /**
-     * @param int|\Countable $count
-     */
-    public function __construct($count)
+    public function __construct(int|\Countable|array $count)
     {
         $this->count = is_int($count) ? $count : count($count);
     }

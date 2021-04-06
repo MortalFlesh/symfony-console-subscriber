@@ -6,11 +6,8 @@ use MF\ConsoleSubscriber\AbstractTestCase;
 
 class ProgressStartEventTest extends AbstractTestCase
 {
-    /**
-     * @dataProvider countProvider
-     * @param int|\Countable $count
-     */
-    public function testShouldStartProgress($count, int $expected): void
+    /** @dataProvider countProvider */
+    public function testShouldStartProgress(int|\Countable|array $count, int $expected): void
     {
         $event = new ProgressStartEvent($count);
 

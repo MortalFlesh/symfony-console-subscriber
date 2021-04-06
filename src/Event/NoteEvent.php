@@ -4,11 +4,8 @@ namespace MF\ConsoleSubscriber\Event;
 
 class NoteEvent extends AbstractFormatableEvent
 {
-    private string $note;
-
-    public function __construct(string $note, string ...$args)
+    public function __construct(private string $note, string ...$args)
     {
-        $this->note = $note;
         $this->setArgs($args);
     }
 

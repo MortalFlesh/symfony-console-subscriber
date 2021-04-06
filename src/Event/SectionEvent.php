@@ -4,11 +4,8 @@ namespace MF\ConsoleSubscriber\Event;
 
 class SectionEvent extends AbstractFormatableEvent
 {
-    private string $section;
-
-    public function __construct(string $section, string ...$args)
+    public function __construct(private string $section, string ...$args)
     {
-        $this->section = $section;
         $this->setArgs($args);
     }
 

@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+
+## 2.0.0 - 2021-04-06
 - [**BC**] Require php 8.0 and update dependencies
 
 ## 1.0.0 - 2021-04-06

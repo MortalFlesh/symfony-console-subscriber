@@ -25,17 +25,22 @@
         "symfony/event-dispatcher": "^5.0"
     },
     "require-dev": {
-        "lmc/coding-standard": "^3.0",
+        "lmc/coding-standard": "^3.2",
         "mockery/mockery": "^1.4",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^0.12.83",
-        "phpstan/phpstan-mockery": "^0.12.13",
-        "phpstan/phpstan-phpunit": "^0.12.18",
+        "phpstan/phpstan": "^1.4",
+        "phpstan/phpstan-mockery": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5"
     },
     "config": {
         "bin-dir": "bin",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
+        }
     },
     "scripts": {
         "all": [

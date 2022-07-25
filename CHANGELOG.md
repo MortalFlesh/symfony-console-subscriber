@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+
+## 3.0.0 - 2022-07-25
 - Allow Symfony 6
 - Require php 8.1
     - [BC] Use php 8.1 features and types

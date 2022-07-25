@@ -16,19 +16,17 @@ class TableFormatter
                     ? self::formatRow($row)
                     : $row;
             },
-            $rows
+            $rows,
         );
     }
 
     private static function formatRow(array $row): array
     {
         return array_map(
-            function ($column) {
-                return is_string($column)
-                    ? MessageFormatter::formatMessage($column)
-                    : $column;
-            },
-            $row
+            fn ($column) => is_string($column)
+                ? MessageFormatter::formatMessage($column)
+                : $column,
+            $row,
         );
     }
 }

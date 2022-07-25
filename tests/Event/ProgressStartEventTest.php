@@ -22,7 +22,7 @@ class ProgressStartEventTest extends AbstractTestCase
             'Counteble - array' => [[1, 2, 3], 3],
             'Counteble - Object' => [
                 new class() implements \Countable {
-                    public function count()
+                    public function count(): int
                     {
                         return 5;
                     }

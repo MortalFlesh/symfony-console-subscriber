@@ -19,7 +19,7 @@ class MessageFormatter
         return str_replace(
             [self::MARK_OK, self::MARK_WARNING, self::MARK_ERROR],
             [self::markOk(), self::markWarning(), self::markError()],
-            $value
+            $value,
         );
     }
 

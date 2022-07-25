@@ -16,9 +16,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ConsoleSubscriberTest extends AbstractTestCase
 {
     private ConsoleSubscriber $consoleSubscriber;
-
     /** @var SymfonyStyle|m\MockInterface */
-    private $io;
+    private SymfonyStyle $io;
 
     protected function setUp(): void
     {
